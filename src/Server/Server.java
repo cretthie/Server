@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import BO.Message;
 import BO.User;
 
 public class Server 
@@ -22,6 +23,7 @@ public class Server
 	public Server(int port, int maxCon)
 	{
 		this.port = port;
+		this.port = 41279;
 		this.maxCon = maxCon;
 		try 
 		{
@@ -42,11 +44,16 @@ public class Server
 				client = srv.accept();
 				while(!secure)
 				{
-					ois = new ObjectInputStream(client.getInputStream());
-					oos = new ObjectOutputStream(client.getOutputStream());
 					try 
 					{
+						ois = new ObjectInputStream(client.getInputStream());
+						oos = new ObjectOutputStream(client.getOutputStream());
 						user = (User)ois.readObject();
+						System.out.println(user.Login());
+							oos.flush();
+							oos.close();
+							ois.close();
+
 					} 
 					catch (ClassNotFoundException e) 
 					{
