@@ -50,9 +50,9 @@ public class Server
 						oos = new ObjectOutputStream(client.getOutputStream());
 						user = (User)ois.readObject();
 						System.out.println(user.Login());
-							oos.flush();
-							oos.close();
-							ois.close();
+						oos.flush();
+						oos.close();
+						ois.close();
 
 					} 
 					catch (ClassNotFoundException e) 
