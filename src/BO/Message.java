@@ -1,6 +1,7 @@
 package BO;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Message implements Serializable
 {
@@ -10,19 +11,30 @@ public class Message implements Serializable
 	private String msg;
 	private String type;
 	private int ordre;
+	private Date dateMsg;
 	/*
 	 * Type :
 	 * connexion -> from (0 = server) to (idClient) -> msg = true or false
 	*/
-	public Message(int from, int to, String message, String type)
+	public Message(int from, int to, String message, String type, int ordre, Date dateMsg)
 	{
 		this.from = from;
 		this.to = to;
 		this.msg = message;
 		this.type = type;
+		this.ordre = ordre;
+		this.dateMsg = dateMsg;
 	}
 	public Message()
 	{
+	}
+	public void DateMsg(Date value)
+	{
+		this.dateMsg = value;
+	}
+	public Date DateMsg()
+	{
+		return this.dateMsg;
 	}
 	public void Ordre(int value)
 	{
