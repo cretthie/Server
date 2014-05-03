@@ -10,7 +10,6 @@ public class Client {
 	
 	public static void main(String[] args) {
 	
-		
 	try {
 		
 		System.out.println("Demande de connexion");
