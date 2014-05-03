@@ -1,0 +1,11 @@
+Connexion :
+
+Client :
+Envoi d'un User tant que User est invalidé: Login + password
+
+Server : 
+Envoi d'un Message de connexion : true or false si le User est OK ou pas.
+
+Dialog :
+
+
