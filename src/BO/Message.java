@@ -9,6 +9,7 @@ public class Message implements Serializable
 	private int to;
 	private String msg;
 	private String type;
+	private int ordre;
 	/*
 	 * Type :
 	 * connexion -> from (0 = server) to (idClient) -> msg = true or false
@@ -23,7 +24,14 @@ public class Message implements Serializable
 	public Message()
 	{
 	}
-	
+	public void Ordre(int value)
+	{
+		this.ordre = value;
+	}
+	public int Ordre()
+	{
+		return this.ordre;
+	}
 	public String Type()
 	{
 		return this.type;
