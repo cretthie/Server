@@ -2,39 +2,96 @@ package BO;
 
 import java.io.Serializable;
 
-public class User implements Serializable
+public class Message implements Serializable
 {
-	private int id;
-	private String login;
-	private String password;
-	public User(int id, String login, String password)
+	//source : http://www.coderanch.com/t/205325/sockets/java/send-java-Object-socket
+	private int from;
+	private int to;
+	private String msg;
+	private String type;
+	/*
+	 * Type :
+	 * connexion -> from (0 = server) to (idClient) -> msg = true or false
+	*/
+	public Message(int from, int to, String message, String type)
 	{
-		Id(id);
-		Login(login);
-		Password(password);
+		this.from = from;
+		this.to = to;
+		this.msg = message;
+		this.type = type;
 	}
-	public int Id()
+	public Message()
 	{
-		return this.id;
 	}
-	public String Login()
+	
+	public String Type()
 	{
-		return this.login;
+		return this.type;
 	}
-	public String Password()
+	public void Type(String value)
 	{
-		return this.password;
+		this.type = value;
 	}
-	public void Id(int value)
+	public String Msg()
 	{
-		this.id = value;
+		return this.msg;
 	}
-	public void Login(String value)
+	public void Msg(String value)
 	{
-		this.login = value;
+		this.msg = value;
 	}
-	public void Password(String value)
+	public int To()
 	{
-		this.password = value;
+		return this.to;
+	}
+	public void To(int value)
+	{
+		this.to = value;
+	}
+	public int From()
+	{
+		return this.from;
+	}
+	public void From(int value)
+	{
+		this.from = value;
 	}
 }
+/*
+	public void send(Socket socket, Message message)
+	{		
+		try 
+		{
+			OutputStream os = socket.getOutputStream();
+			ObjectOutputStream oos = new ObjectOutputStream(os);
+			oos.writeObject(this);
+			oos.flush();
+			oos.close();
+			os.close();
+		}
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+	public Message recept(Socket socket)
+	{
+		Message message = null;
+		try 
+		{
+			InputStream is = socket.getInputStream();
+			ObjectInputStream ois = new ObjectInputStream(is);
+			message = (Message)ois.readObject();
+			is.close();
+			ois.close();
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		} 
+		catch (ClassNotFoundException e) 
+		{
+			e.printStackTrace();
+		}
+		return message;
+	}*/
