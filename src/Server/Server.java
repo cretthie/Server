@@ -40,7 +40,6 @@ public class Server
 			try 
 			{
 				client = srv.accept();
-
 				while(!secure)
 				{
 					ois = new ObjectInputStream(client.getInputStream());
