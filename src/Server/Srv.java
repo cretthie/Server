@@ -9,6 +9,7 @@ import java.util.Date;
 
 import BO.Message;
 import BO.User;
+import Database.UserDataHelper;
 
 public class Srv 
 {
@@ -76,7 +77,12 @@ public class Srv
 	public boolean isvalid(User user)
 	{
 		boolean connect = false;
-		
+		UserDataHelper userDH = new UserDataHelper();
+		User testUser = userDH.loginExistOK(user);
+		if(testUser.Id() > 0)
+		{
+			connect = true;
+		}
 		return connect;
 	}
 }

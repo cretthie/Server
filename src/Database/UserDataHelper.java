@@ -20,11 +20,9 @@ public class UserDataHelper extends Database
 		updateValue(req) ;
 		disconnexion() ;
 	}
-	
-
-	public int loginExistOK(User leUser)
+	public User loginExistOK(User leUser)
 	{
-		int exist = 0;
+		User user = null;
 		try 
 		{
 			connexion() ;
@@ -32,7 +30,9 @@ public class UserDataHelper extends Database
 			getResultOf(req) ;
 			if(getResult().next())
 			{
-				exist = getResult().getInt("id") ;
+				user = new User (getResult().getInt("id"),
+								 getResult().getString("login"),
+								 "");
 			}
 			disconnexion() ;
 		} 
@@ -40,7 +40,7 @@ public class UserDataHelper extends Database
 		{
 			e.printStackTrace() ;
 		}
-		return exist ;
+		return user ;
 	}
 	public User select_userByLogin(String login)
 	{
@@ -88,7 +88,6 @@ public class UserDataHelper extends Database
 		}
 		return null ;
 	}
-	
 	public void deleteUser(User leUser)
 	{
 		connexion() ;
