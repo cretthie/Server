@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class User implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String login;
 	private String password;
@@ -13,6 +17,8 @@ public class User implements Serializable
 		Login(login);
 		Password(password);
 	}
+	public User()
+	{}
 	public int Id()
 	{
 		return this.id;

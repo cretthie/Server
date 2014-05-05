@@ -17,10 +17,13 @@ public class Server
 	private Socket client;
 	private Thread conThread;
 	private boolean secure;
-	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
 	private User user;
-	public Server(int port, int maxCon)
+	public static void main(String[] args) throws ClassNotFoundException, InterruptedException
+	{
+		Server s = new Server(41279,10);
+	}
+	public Server(int port, int maxCon) throws ClassNotFoundException, InterruptedException
 	{
 		this.port = port;
 		this.port = 41279;
@@ -28,43 +31,24 @@ public class Server
 		try 
 		{
 			srv = new ServerSocket(port, maxCon);
+			client = srv.accept();
+			System.out.println("Helo / " + client);
+			
+			ObjectOutputStream oos = new ObjectOutputStream(client.getOutputStream());
+			ObjectInputStream ois = new ObjectInputStream(client.getInputStream());
+
+			System.out.println("OK");
+			user = (User) ois.readObject();
+			
+			System.out.println("OK2");
+			System.out.println(user.Login());
+			oos.flush();
+			oos.close();
+			ois.close();
 		} 
 		catch (IOException e)
 		{
 			e.printStackTrace();
-		}
-	}
-	public void runNetwork()
-	{
-		while(true)
-		{
-			secure = false;
-			try 
-			{
-				client = srv.accept();
-				while(!secure)
-				{
-					try 
-					{
-						ois = new ObjectInputStream(client.getInputStream());
-						oos = new ObjectOutputStream(client.getOutputStream());
-						user = (User)ois.readObject();
-						System.out.println(user.Login());
-						oos.flush();
-						oos.close();
-						ois.close();
-
-					} 
-					catch (ClassNotFoundException e) 
-					{
-						e.printStackTrace();
-					}
-				}
-			} 
-			catch (IOException e) 
-			{
-				e.printStackTrace();
-			}
 		}
 	}
 }
