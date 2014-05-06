@@ -35,20 +35,20 @@ public class Security implements Runnable
 			ois = new ObjectInputStream(clientSocket.getInputStream());
 			user = (User) ois.readObject();
 			System.out.println(user.Login());
-				if(!isvalid(user))
+				if(isvalid(user))
 				{
 					Date date = new Date();
 					System.out.println(user.Login());
 					msg = new Message(0, user.Id(), "true", "connexion", 1, date);
-					//oos.writeObject(msg);
-					//oos.flush();
+					oos.writeObject(msg);
+					oos.flush();
 				}
 				else
 				{
 					Date date = new Date();
 					msg = new Message(0, 0, "false", "connexion", 1, date);							oos.writeObject(msg);
-					//oos.writeObject(msg);
-					//oos.flush();
+					oos.writeObject(msg);
+					oos.flush();
 				}
 			ois.close();
 			oos.close();
@@ -70,10 +70,11 @@ public class Security implements Runnable
 		UserDataHelper userDH = new UserDataHelper();
 		User testUser = userDH.loginExistOK(user);
 		System.out.println(testUser.Login());
-		//if(testUser.Id() > 0)
-		//{
+		if(testUser.Id() > 0)
+		{
 			connect = true;
-		//}
+		}
+		System.out.println(connect);
 		return connect;
 	}
 	@Override

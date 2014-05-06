@@ -18,7 +18,6 @@ public class Srv
 	private ServerSocket srv;
 	private Socket clientSocket;
 	private Thread srvThread;
-	
 	public static void main(String[] args)
 	{
 		Srv s = new Srv(41279,10);
