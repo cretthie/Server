@@ -7,6 +7,10 @@ package Database;
 
 public class Create extends Database
 {
+	public static void main(String[] args)
+	{
+		Create c = new Create();
+	}
 	public Create() 
 	{
 		super("chatProjectDB") ;

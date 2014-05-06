@@ -16,12 +16,13 @@ public class Srv
 	private int port;
 	private int maxCon;
 	private ServerSocket srv;
-	private Socket client;
-	private ObjectOutputStream oos;
-	private ObjectInputStream ois;
-	private User user;
-	private Message msg;
+	private Socket clientSocket;
+	private Thread srvThread;
 	
+	public static void main(String[] args)
+	{
+		Srv s = new Srv(41279,10);
+	}
 	public Srv(int port, int maxCon)
 	{
 		if(port<0)
@@ -30,6 +31,7 @@ public class Srv
 		}
 		this.port = port;
 		this.maxCon = maxCon;
+		runNetwork();
 	}
 	public void runNetwork()
 	{
@@ -38,35 +40,10 @@ public class Srv
 			srv = new ServerSocket(port, maxCon);
 			while(true)
 			{
-				client = srv.accept();
-				oos = new ObjectOutputStream(client.getOutputStream());
-				ois = new ObjectInputStream(client.getInputStream());
-				try 
-				{
-					user = (User) ois.readObject();
-					boolean connect = false;
-					while(!connect)
-					{
-						Date date = new Date();
-						if(isvalid(user))
-						{
-							msg = new Message(0, user.Id(), "true", "connexion", 1, date);
-							oos.writeObject(msg);
-							oos.flush();
-							connect=true;
-						}
-						else
-						{
-							msg = new Message(0, 0, "false", "connexion", 1, date);							oos.writeObject(msg);
-							oos.writeObject(msg);
-							oos.flush();
-						}
-					}
-				} 
-				catch (ClassNotFoundException e) 
-				{
-					e.printStackTrace();
-				}
+				clientSocket = srv.accept();
+				System.out.println("Création d'un thread server");
+				srvThread = new Thread(new Security(clientSocket, srvThread));
+				System.out.println("Le Thread " + srvThread + " a été créé avec le " + clientSocket);
 			}
 		} 
 		catch (IOException e) 
@@ -74,15 +51,8 @@ public class Srv
 			e.printStackTrace();
 		}
 	}
-	public boolean isvalid(User user)
+	public void closeNetwork()
 	{
-		boolean connect = false;
-		UserDataHelper userDH = new UserDataHelper();
-		User testUser = userDH.loginExistOK(user);
-		if(testUser.Id() > 0)
-		{
-			connect = true;
-		}
-		return connect;
+		
 	}
 }

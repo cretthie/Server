@@ -5,6 +5,10 @@ import java.util.Date;
 
 public class Message implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2L;
 	//source : http://www.coderanch.com/t/205325/sockets/java/send-java-Object-socket
 	private int from;
 	private int to;
