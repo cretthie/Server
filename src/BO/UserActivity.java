@@ -7,9 +7,18 @@ public class UserActivity
 	private User user;
 	private Thread secuThread;
 	private Socket userSocket;
+	private Thread dialThread;
 	public UserActivity()
 	{
 		
+	}
+	public Thread DialThread()
+	{
+		return this.dialThread;
+	}
+	public void DialThread(Thread value)
+	{
+		this.dialThread = value;
 	}
 	public Socket UserSocket()
 	{

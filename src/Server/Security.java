@@ -20,6 +20,7 @@ public class Security implements Runnable
 	private UserActivity userActivity;
 	private Vector<UserActivity> listActivity;
 	
+	
 	public Security(UserActivity userActivity, Vector<UserActivity> listActivity)
 	{
 		this.userActivity = userActivity;
@@ -40,6 +41,11 @@ public class Security implements Runnable
 				msg = new Message(0, user.Id(), "true", "connexion", 1, date);
 				oos.writeObject(msg);
 				oos.flush();
+				userActivity.DialThread(new Thread(new Dialog(userActivity, listActivity)));
+				userActivity.DialThread().start();
+				ois.close();
+				oos.close();
+				userActivity.SecuThread().interrupt();
 			}
 			else
 			{
@@ -47,9 +53,11 @@ public class Security implements Runnable
 				msg = new Message(0, 0, "false", "connexion", 1, date);							oos.writeObject(msg);
 				oos.writeObject(msg);
 				oos.flush();
+				ois.close();
+				oos.close();
+				userActivity.SecuThread().interrupt();
+				userActivity.UserSocket().close();
 			}
-			ois.close();
-			oos.close();
 		} 
 		catch (IOException e1) 
 		{
