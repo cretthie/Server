@@ -1,15 +1,11 @@
 package Server;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Date;
+import java.util.Vector;
 
-import BO.Message;
-import BO.User;
-import Database.UserDataHelper;
+import BO.UserActivity;
 
 public class Srv 
 {
@@ -17,7 +13,8 @@ public class Srv
 	private int maxCon;
 	private ServerSocket srv;
 	private Socket clientSocket;
-	private Thread srvThread;
+	private Thread secuThread;
+	private Vector<UserActivity> listActivity;
 	public static void main(String[] args)
 	{
 		Srv s = new Srv(41279,10);
@@ -40,9 +37,11 @@ public class Srv
 			while(true)
 			{
 				clientSocket = srv.accept();
-				System.out.println("Création d'un thread server");
-				srvThread = new Thread(new Security(clientSocket, srvThread));
-				System.out.println("Le Thread " + srvThread + " a été créé avec le " + clientSocket);
+				UserActivity userActivity = new UserActivity();
+				userActivity.UserSocket(clientSocket);
+				userActivity.SecuThread(new Thread(new Security(userActivity)));
+				userActivity.SecuThread().start();
+				//System.out.println("Le Thread " + secuThread + " a été créé avec le " + clientSocket);
 			}
 		} 
 		catch (IOException e) 
