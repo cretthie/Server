@@ -22,7 +22,7 @@ public class UserDataHelper extends Database
 	}
 	public User loginExistOK(User leUser)
 	{
-		User user = null;
+		User user = new User(0,"","");
 		try 
 		{
 			connexion() ;

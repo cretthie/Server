@@ -67,8 +67,9 @@ public class Security implements Runnable
 	{
 		System.out.println("isvalid()");
 		boolean connect = false;
-		//UserDataHelper userDH = new UserDataHelper();
-		//User testUser = userDH.loginExistOK(user);
+		UserDataHelper userDH = new UserDataHelper();
+		User testUser = userDH.loginExistOK(user);
+		System.out.println(testUser.Login());
 		//if(testUser.Id() > 0)
 		//{
 			connect = true;
