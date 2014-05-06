@@ -26,6 +26,7 @@ public class Srv
 		}
 		this.port = port;
 		this.maxCon = maxCon;
+		listActivity = new Vector<UserActivity>();
 		runNetwork();
 	}
 	public void runNetwork()
