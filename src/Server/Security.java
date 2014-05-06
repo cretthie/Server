@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Date;
+import java.util.Vector;
 
 import BO.Message;
 import BO.User;
@@ -18,10 +19,12 @@ public class Security implements Runnable
 	private User user;
 	private Message msg;
 	private UserActivity userActivity;
+	private Vector<UserActivity> listActivity;
 	
-	public Security(UserActivity userActivity)
+	public Security(UserActivity userActivity, Vector<UserActivity> listActivity)
 	{
 		this.userActivity = userActivity;
+		this.listActivity = listActivity;
 	}
 	public void security()
 	{

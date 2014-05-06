@@ -13,7 +13,6 @@ public class Srv
 	private int maxCon;
 	private ServerSocket srv;
 	private Socket clientSocket;
-	private Thread secuThread;
 	private Vector<UserActivity> listActivity;
 	public static void main(String[] args)
 	{
@@ -39,7 +38,7 @@ public class Srv
 				clientSocket = srv.accept();
 				UserActivity userActivity = new UserActivity();
 				userActivity.UserSocket(clientSocket);
-				userActivity.SecuThread(new Thread(new Security(userActivity)));
+				userActivity.SecuThread(new Thread(new Security(userActivity, listActivity)));
 				userActivity.SecuThread().start();
 				//System.out.println("Le Thread " + secuThread + " a été créé avec le " + clientSocket);
 			}
