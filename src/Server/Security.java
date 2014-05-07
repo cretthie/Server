@@ -35,28 +35,28 @@ public class Security implements Runnable
 			user = (User) ois.readObject();
 			if(isvalid(user))
 			{
-				Date date = new Date();
 				System.out.println(user.Login());
 				userActivity.User(user);
-				msg = new Message(0, user.Id(), "true", "connexion", 1, date);
+				msg = new Message(0, user.Id(), "true", "connexion", 1, new Date());
 				oos.writeObject(msg);
 				oos.flush();
-				userActivity.DialThread(new Thread(new Dialog(userActivity, listActivity)));
-				userActivity.DialThread().start();
+				userActivity.SecuThread(new Thread(new Dialog(userActivity, listActivity)));
+				userActivity.SecuThread().start();
 				ois.close();
 				oos.close();
-				userActivity.SecuThread().interrupt();
+				userActivity.SrvThread().interrupt();
+				System.out.println(userActivity.SrvThread().isInterrupted());
 			}
 			else
 			{
-				Date date = new Date();
-				msg = new Message(0, 0, "false", "connexion", 1, date);							oos.writeObject(msg);
+				msg = new Message(0, 0, "false", "connexion", 1, new Date());
 				oos.writeObject(msg);
 				oos.flush();
 				ois.close();
 				oos.close();
-				userActivity.SecuThread().interrupt();
+				userActivity.SrvThread().interrupt();
 				userActivity.UserSocket().close();
+				System.out.println(userActivity.SrvThread().getId());
 			}
 		} 
 		catch (IOException e1) 

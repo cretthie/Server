@@ -5,20 +5,20 @@ import java.net.Socket;
 public class UserActivity 
 {
 	private User user;
-	private Thread secuThread;
+	private Thread srvThread;
 	private Socket userSocket;
-	private Thread dialThread;
+	private Thread secuThread;
 	public UserActivity()
 	{
 		
 	}
-	public Thread DialThread()
+	public Thread SecuThread()
 	{
-		return this.dialThread;
+		return this.secuThread;
 	}
-	public void DialThread(Thread value)
+	public void SecuThread(Thread value)
 	{
-		this.dialThread = value;
+		this.secuThread = value;
 	}
 	public Socket UserSocket()
 	{
@@ -28,13 +28,13 @@ public class UserActivity
 	{
 		this.userSocket = value;
 	}
-	public void SecuThread(Thread value)
+	public void SrvThread(Thread value)
 	{
-		this.secuThread = value;
+		this.srvThread = value;
 	}
-	public Thread SecuThread()
+	public Thread SrvThread()
 	{
-		return this.secuThread;
+		return this.srvThread;
 	}
 	public User User()
 	{

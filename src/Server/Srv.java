@@ -39,8 +39,8 @@ public class Srv
 				clientSocket = srv.accept();
 				UserActivity userActivity = new UserActivity();
 				userActivity.UserSocket(clientSocket);
-				userActivity.SecuThread(new Thread(new Security(userActivity, listActivity)));
-				userActivity.SecuThread().start();
+				userActivity.SrvThread(new Thread(new Security(userActivity, listActivity)));
+				userActivity.SrvThread().start();
 				
 				//System.out.println("Le Thread " + secuThread + " a été créé avec le " + clientSocket);
 			}
