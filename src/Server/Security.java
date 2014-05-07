@@ -35,6 +35,7 @@ public class Security implements Runnable
 			{
 				System.out.println(user.Login());
 				userActivity.User(user);
+				listActivity.add(userActivity);
 				msg = new Message(0, user.Id(), "true", "connexion", 1, new Date());
 				userActivity.Oos().writeObject(msg);
 				userActivity.Oos().flush();
