@@ -20,7 +20,7 @@ public class Srv
 	}
 	public Srv(int port, int maxCon)
 	{
-		if(port<0)
+		if(port<1025)
 		{
 			port = 41279;
 		}

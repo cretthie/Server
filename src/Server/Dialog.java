@@ -18,31 +18,25 @@ public class Dialog implements Runnable
 	{
 		this.userActivity = userActivity;
 		this.listActivity = listActivity;
-		System.out.println("ok");
 	}
 	@Override
 	public void run() 
 	{
-		Message message = new Message();
-		
-		try 
+		while(true)
 		{
-			message = (Message) userActivity.Ois().readObject();
-		} 
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		} 
-		catch (ClassNotFoundException e) 
-		{
-			e.printStackTrace();
+			try 
+			{
+				Message msg = (Message)userActivity.Ois().readObject();
+				System.out.println(msg.Msg());
+			} 
+			catch (ClassNotFoundException e) 
+			{
+				e.printStackTrace();
+			} 
+			catch (IOException e) 
+			{
+				e.printStackTrace();
+			}
 		}
-		/*
-		catch (ClassNotFoundException e) 
-		{
-			e.printStackTrace();
-		}
-		*/
-		System.out.println(message.Msg());
 	}
 }

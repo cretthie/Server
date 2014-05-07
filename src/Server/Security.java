@@ -40,17 +40,17 @@ public class Security implements Runnable
 				userActivity.Oos().flush();
 				userActivity.SecuThread(new Thread(new Dialog(userActivity, listActivity)));
 				userActivity.SecuThread().start();
-				//userActivity.SrvThread().interrupt();
-				//System.out.println(userActivity.SrvThread().isInterrupted());
+				userActivity.SrvThread().interrupt();
+				System.out.println(userActivity.SrvThread().isInterrupted());
 			}
 			else
 			{
 				msg = new Message(0, 0, "false", "connexion", 1, new Date());
 				userActivity.Oos().writeObject(msg);
 				userActivity.Oos().flush();
-				//userActivity.SrvThread().interrupt();
-				//userActivity.UserSocket().close();
-				//System.out.println(userActivity.SrvThread().getId());
+				userActivity.SrvThread().interrupt();
+				userActivity.UserSocket().close();
+				System.out.println(userActivity.SrvThread().getId());
 			}
 		} 
 		catch (IOException e1) 
