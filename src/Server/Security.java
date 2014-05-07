@@ -13,8 +13,6 @@ import Database.UserDataHelper;
 
 public class Security implements Runnable
 {
-	private ObjectOutputStream oos;
-	private ObjectInputStream ois;
 	private User user;
 	private Message msg;
 	private UserActivity userActivity;
@@ -30,33 +28,29 @@ public class Security implements Runnable
 	{
 		try 
 		{
-			oos = new ObjectOutputStream(userActivity.UserSocket().getOutputStream());
-			ois = new ObjectInputStream(userActivity.UserSocket().getInputStream());
-			user = (User) ois.readObject();
+			userActivity.Oos(new ObjectOutputStream(userActivity.UserSocket().getOutputStream()));
+			userActivity.Ois(new ObjectInputStream(userActivity.UserSocket().getInputStream()));
+			user = (User) userActivity.Ois().readObject();
 			if(isvalid(user))
 			{
 				System.out.println(user.Login());
 				userActivity.User(user);
 				msg = new Message(0, user.Id(), "true", "connexion", 1, new Date());
-				oos.writeObject(msg);
-				oos.flush();
+				userActivity.Oos().writeObject(msg);
+				userActivity.Oos().flush();
 				userActivity.SecuThread(new Thread(new Dialog(userActivity, listActivity)));
 				userActivity.SecuThread().start();
-				ois.close();
-				oos.close();
-				userActivity.SrvThread().interrupt();
-				System.out.println(userActivity.SrvThread().isInterrupted());
+				//userActivity.SrvThread().interrupt();
+				//System.out.println(userActivity.SrvThread().isInterrupted());
 			}
 			else
 			{
 				msg = new Message(0, 0, "false", "connexion", 1, new Date());
-				oos.writeObject(msg);
-				oos.flush();
-				ois.close();
-				oos.close();
-				userActivity.SrvThread().interrupt();
-				userActivity.UserSocket().close();
-				System.out.println(userActivity.SrvThread().getId());
+				userActivity.Oos().writeObject(msg);
+				userActivity.Oos().flush();
+				//userActivity.SrvThread().interrupt();
+				//userActivity.UserSocket().close();
+				//System.out.println(userActivity.SrvThread().getId());
 			}
 		} 
 		catch (IOException e1) 

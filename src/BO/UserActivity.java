@@ -1,5 +1,7 @@
 package BO;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class UserActivity 
@@ -8,9 +10,27 @@ public class UserActivity
 	private Thread srvThread;
 	private Socket userSocket;
 	private Thread secuThread;
+	private ObjectOutputStream oos;
+	private ObjectInputStream ois;
 	public UserActivity()
 	{
 		
+	}
+	public void Ois(ObjectInputStream ois)
+	{
+		this.ois = ois;
+	}
+	public ObjectInputStream Ois()
+	{
+		return this.ois;
+	}
+	public void Oos(ObjectOutputStream oos)
+	{
+		this.oos = oos;
+	}
+	public ObjectOutputStream Oos()
+	{
+		return this.oos;
 	}
 	public Thread SecuThread()
 	{
